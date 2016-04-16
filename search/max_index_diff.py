@@ -128,4 +128,4 @@ if __name__ == "__main__":
 		N = int(s.readline().strip("\n"))
 		ar = map(int, s.readline().strip("\n").split())
 		br = map(int, s.readline().strip("\n").split())
-		print split_arr(ar, br, N)
+		assert split_arr(ar, br, N) == int(ans.readline().strip("\n"))
