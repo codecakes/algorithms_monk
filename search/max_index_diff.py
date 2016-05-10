@@ -94,11 +94,12 @@ def split_arr(ar, br, N):
 	# print maximus if maximus > -1 else 0
 	return maximus if maximus > -1 else 0
 
+
 if __name__ == "__main__":
 	ar = [7, 7, 3, 3, 3, 2, 2, 2, 1]
 	br = [8, 8, 7, 7, 5, 5, 4, 3, 2]
 	N = 9
-	# print split_arr(ar, br, N)
+	print split_arr(ar, br, N)
 	assert split_arr(ar, br, N) == 5
 
 
