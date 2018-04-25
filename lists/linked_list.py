@@ -25,10 +25,10 @@ class LinkedList(object):
             current.next = new_element
         else:
             self.head = new_element
-            
-    def __get__(self, position):
+    
+    def __getitem__(self, position):
         return self.get_position(position)
-        
+    
     def get_position(self, position):
         """Get an element from a particular position.
         Assume the first position is "1".
@@ -45,7 +45,7 @@ class LinkedList(object):
             return current
         return None
     
-    def __set__(self, position, element):
+    def __setitem__(self, position, element):
         return self.insert(element, position)
     
     def insert(self, new_element, position):
@@ -64,7 +64,9 @@ class LinkedList(object):
         else:
             new_element.next = cur_node
             self.head = new_element
-        
+
+    def __delitem__(self, value):
+        self.delete(value)
     
     def delete(self, value):
         """Delete the first node with a given value."""
@@ -97,18 +99,19 @@ ll.append(e3)
 # Should print 3
 assert ll.head.next.next.value == 3
 # Should also print 3
-assert ll.get_position(3).value == 3
+assert ll[3].value == 3
 
 # Test insert
-ll.insert(e4,3)
+# ll.insert(e4,3)
+ll[3] = e4
 # Should print 4 now
-assert ll.get_position(3).value == 4
+assert ll[3].value == 4
 
 # Test delete
-ll.delete(1)
+del ll[1]
 # Should print 2 now
-assert ll.get_position(1).value == 2
+assert ll[1].value == 2
 # Should print 4 now
-assert ll.get_position(2).value == 4
+assert ll[2].value == 4
 # Should print 3 now
-assert ll.get_position(3).value == 3
+assert ll[3].value == 3
