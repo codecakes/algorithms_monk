@@ -25,7 +25,7 @@ class LinkedList(object):
             current.next = new_element
         else:
             self.head = new_element
-    
+
     def __getitem__(self, position):
         return self.get_position(position)
     
@@ -64,6 +64,10 @@ class LinkedList(object):
         else:
             new_element.next = cur_node
             self.head = new_element
+            
+    def insert_first(self, new_element):
+        "Insert new element as the head of the LinkedList"
+        self[0] = new_element
 
     def __delitem__(self, value):
         self.delete(value)
@@ -71,17 +75,37 @@ class LinkedList(object):
     def delete(self, value):
         """Delete the first node with a given value."""
         current = self.head
-        if current:
-            prev = None
-            while current.next:
-                if current.value == value:
-                    if prev:
-                        prev.next = current.next
-                    else:
-                        self.head = current.next
-                    del current
-                    return
-                prev, current = current, current.next
+        prev = None
+        while current:
+            if current.value == value:
+                if prev:
+                    prev.next = current.next
+                else:
+                    self.head = current.next
+                # print "Found", current.value
+                return current
+            prev, current = current, current.next
+        return None
+    
+    def delete_first(self):
+        "Delete the first (head) element in the LinkedList as return it"
+        r = self[0]
+        if r:
+            return self.delete(r.value)
+        return None
+        
+
+class Stack(object):
+    def __init__(self,top=None):
+        self.ll = LinkedList(top)
+
+    def push(self, new_element):
+        "Push (add) a new element onto the top of the stack"
+        self.ll.insert_first(new_element)
+
+    def pop(self):
+        "Pop (remove) the first element off the top of the stack and return it"
+        return self.ll.delete_first()
 
 # Test cases
 # Set up some Elements
@@ -115,3 +139,23 @@ assert ll[1].value == 2
 assert ll[2].value == 4
 # Should print 3 now
 assert ll[3].value == 3
+
+# ========= Stack Test =======
+# Set up some Elements
+e1 = Element(1)
+e2 = Element(2)
+e3 = Element(3)
+e4 = Element(4)
+
+# Start setting up a Stack
+stack = Stack(e1)
+
+# Test stack functionality
+stack.push(e2)
+stack.push(e3)
+assert stack.pop().value == 3
+assert stack.pop().value == 2
+assert stack.pop().value == 1
+assert stack.pop() == None
+stack.push(e4)
+assert stack.pop().value == 4
