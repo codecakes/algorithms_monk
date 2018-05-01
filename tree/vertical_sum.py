@@ -23,8 +23,7 @@ def vertical_lines(root, idx=0, dct=None):
     else:
         traverse_sum(root, idx, dct, idx)
         vertical_lines(root.right, idx+1, dct)
-    res = dct.items()
-    return [sum(x[1]) for x in sorted(res, key=lambda x: x[0])]
+    return [sum(x[1]) for x in sorted(dct.iteritems(), key=lambda x: x[0])]
 
         
 
