@@ -30,7 +30,7 @@ def heapsort(arr, N):
         swap(arr, 0, N)
         copyarr += [arr.pop()]
         N -= 1
-        arr = build_maxheap(arr, N)
+        max_heapify(arr, 0, N)
     return copyarr
 
 
