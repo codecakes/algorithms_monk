@@ -62,7 +62,6 @@ n1,n2,n3,n4,n5 = Node(1), Node(2), Node(4), Node(6), Node(100)
 
 t = Tree(n4)
 map(t.insert, [n1,n2,n3,n5])
-print t
+# print t
+# print vertical_lines(t.root)
 assert vertical_lines(t.root) == [1,8, 104]
-        
-        
