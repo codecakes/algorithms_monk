@@ -65,7 +65,7 @@ class Graph(object):
         #O(N+k)
         arr = [None for _ in xrange(min_val + count)]
         #O(E*lg(N)), where E <= N
-        self.divide_conquer(self.nodes, 0, count-1, lambda node: self.adjacency_list_helper(arr, node))
+        self.divide_conquer(self.edges, 0, len(self.edges)-1, lambda edge: self.adjacency_list_helper(arr, edge))
         return arr
 
     
@@ -86,24 +86,28 @@ class Graph(object):
             if node.value < min_val:
                 min_val = node.value
         arr = [[0]*(min_val + count) for _ in xrange(min_val + count)]
-        self.divide_conquer(self.nodes, 0, count-1, lambda node: self.adjacency_matrix_helper(arr, node))
+        self.divide_conquer(self.edges, 0, len(self.edges)-1, lambda edge: self.adjacency_matrix_helper(arr, edge))
         return arr
         
     
     @staticmethod
-    def adjacency_matrix_helper(arr, node):
-        for e2 in node.edges:
-            if e2.node_to != node:
-                arr[node.value][e2.node_to.value] = e2.value
+    def adjacency_matrix_helper(arr, edge):
+        # for e2 in node.edges:
+        #     if e2.node_to != node:
+        #         arr[node.value][e2.node_to.value] = e2.value
+        arr[edge.node_from.value][edge.node_to.value] = edge.value
     
     
     @staticmethod
-    def adjacency_list_helper(arr, node):
-        for e2 in node.edges:
-            if e2.node_to != node:
-                if not arr[node.value]:
-                    arr[node.value] = []
-                arr[node.value].append((e2.node_to.value, e2.value))
+    def adjacency_list_helper(arr, edge):
+        # for e2 in node.edges:
+        #     if e2.node_to != node:
+        #         if not arr[node.value]:
+        #             arr[node.value] = []
+        #         arr[node.value].append((e2.node_to.value, e2.value))
+        if not arr[edge.node_from.value]:
+            arr[edge.node_from.value] = []
+        arr[edge.node_from.value].append((edge.node_to.value, edge.value))
     
     @classmethod
     def divide_conquer(cls, arr, lo, hi, func):
