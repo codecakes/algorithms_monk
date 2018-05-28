@@ -12,20 +12,23 @@ DCT = {
     '}': '{'
 }
 
+BRACKETS = DCT.values() + DCT.keys()
+
 
 def ast_bracket(expr):
     stack = []
     for br in expr:
-        if stack:
-            sym = DCT.get(br, None)
-            if sym and stack[-1] == sym:
-                stack.pop()
-            elif sym == None:
-                stack.append(br)
+        if br in BRACKETS:            
+            if stack:
+                sym = DCT.get(br, None)
+                if sym and stack[-1] == sym:
+                    stack.pop()
+                elif sym == None:
+                    stack.append(br)
+                else:
+                    return 'NO'
             else:
-                return 'NO'
-        else:
-            stack.append(br)
+                stack.append(br)
     return 'YES' if not stack else 'NO'
 
 
